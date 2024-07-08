@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Widget with AlpineJS</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .increment {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .decrement {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .reset {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <script src="index.js" defer></script>
+    <div class="container" x-data="counter">
+        <h1>Counter Widget</h1>
+        <div class="counter" x-text="count"></div>
+        <div>
+            <button class="increment" @click="increment()" :disabled="count >= maxCount">Increment</button>
+            <button class="decrement" @click="decrement()" :disabled="count <= 0">Decrement</button>
+            <button class="reset" @click="reset()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('counter', () => ({
+                count: 0,
+                maxCount: 10, // Maximum value for the counter
+
+                increment() {
+                    if (this.count < this.maxCount) {
+                        this.count++;
+                    }
+                },
+
+                decrement() {
+                    if (this.count > 0) {
+                        this.count--;
+                    }
+                },
+
+                reset() {
+                    this.count = 0;
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
